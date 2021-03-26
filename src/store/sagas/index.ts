@@ -2,16 +2,16 @@ import { call, delay, put, select, takeLatest } from "redux-saga/effects";
 import { createUser, fetchHistory, optIn, pollForHangout } from "../../api";
 import { AsyncReturnType } from "../../util";
 import { Action, CreateUserRequest, OptInRequest } from "../actions";
-import { activeHangout } from "../lenses";
+import * as lenses from "../lenses";
 import { HangoutState } from "../state";
 
 const putAction = (action: Action) => put(action);
 
 function* createUserSaga(action: CreateUserRequest) {
   const { config } = action;
+  console.log("Creating user...", { config });
 
   try {
-    console.log("Creating user...", { config });
     const user: AsyncReturnType<typeof createUser> = yield call(
       createUser,
       config
@@ -23,24 +23,42 @@ function* createUserSaga(action: CreateUserRequest) {
 }
 
 function* fetchHistorySaga() {
+  console.log("Fetching history...");
+
   try {
-    console.log("Fetching history...");
-    const history: AsyncReturnType<typeof fetchHistory> = yield call(
-      fetchHistory
+    const user: ReturnType<typeof lenses.activeUser> = yield select(
+      lenses.activeUser
     );
-    yield putAction({ type: "FETCH_HISTORY_SUCCESS", history });
+    if (user !== undefined) {
+      const history: AsyncReturnType<typeof fetchHistory> = yield call(
+        fetchHistory,
+        user.email
+      );
+      yield putAction({ type: "FETCH_HISTORY_SUCCESS", history });
+    } else {
+      yield putAction({ type: "FETCH_HISTORY_ERROR", error: "no active user" });
+    }
   } catch (error) {
     yield putAction({ type: "FETCH_HISTORY_ERROR", error });
   }
 }
 
 function* fetchActiveHangoutSaga() {
+  console.log("Fetching active hangout...");
+
   try {
-    console.log("Fetching active hangout...");
-    const hangout: AsyncReturnType<typeof pollForHangout> = yield call(
-      pollForHangout
+    const user: ReturnType<typeof lenses.activeUser> = yield select(
+      lenses.activeUser
     );
-    yield putAction({ type: "FETCH_HANGOUT_SUCCESS", hangout });
+    if (user !== undefined) {
+      const hangout: AsyncReturnType<typeof pollForHangout> = yield call(
+        pollForHangout,
+        user.email
+      );
+      yield putAction({ type: "FETCH_HANGOUT_SUCCESS", hangout });
+    } else {
+      yield putAction({ type: "FETCH_HANGOUT_ERROR", error: "no active user" });
+    }
   } catch (error) {
     yield putAction({ type: "FETCH_HANGOUT_ERROR", error });
   }
@@ -48,12 +66,19 @@ function* fetchActiveHangoutSaga() {
 
 function* optInSaga(action: OptInRequest) {
   const { timestamp } = action;
+  console.log("Opting in...");
 
   try {
-    console.log("Opting in...");
-    yield call(optIn, timestamp);
-    yield putAction({ type: "OPT_IN_SUCCESS" });
-    yield putAction({ type: "START_POLL_FOR_HANGOUT" });
+    const user: ReturnType<typeof lenses.activeUser> = yield select(
+      lenses.activeUser
+    );
+    if (user !== undefined) {
+      yield call(optIn, user.email, timestamp);
+      yield putAction({ type: "OPT_IN_SUCCESS" });
+      yield putAction({ type: "START_POLL_FOR_HANGOUT" });
+    } else {
+      yield putAction({ type: "OPT_IN_ERROR", error: "no active user" });
+    }
   } catch (error) {
     yield putAction({ type: "OPT_IN_ERROR", error });
   }
@@ -65,7 +90,7 @@ function* pollForHangoutSaga() {
   while (hangout === undefined) {
     yield putAction({ type: "FETCH_HANGOUT_REQUEST" });
     yield delay(5000);
-    hangout = yield select(activeHangout);
+    hangout = yield select(lenses.activeHangout);
   }
 }
 
