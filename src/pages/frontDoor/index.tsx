@@ -36,33 +36,36 @@ export const FrontDoor = (props: FrontDoorProps) => {
 
   return (
     <div className="front-door-page">
-      <h1 className="front-door-title">Lunch Buddy</h1>
-      <form
-        className="front-door-signup"
-        onSubmit={(e) => {
-          e.preventDefault();
-          maybeSubmit();
-        }}
-      >
-        <label>
-          Email:
+      <div className="front-door-fake-container">
+        <h1 className="front-door-title">🍕Lunch Buddy🌮</h1>
+        <p className="front-door-copy">Sign in below to be paired with your lunch buddy!</p>
+        <form
+          className="front-door-signup"
+          onSubmit={(e) => {
+            e.preventDefault();
+            maybeSubmit();
+          }}
+        >
+          <label>
+            Email:
           <Input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
 
-        <label>
-          Name:
+          <label>
+            Name:
           <Input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-        <Input type="submit" value="Submit" />
-      </form>
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+          <Input type="submit" value="Submit" />
+        </form>
+      </div>
     </div>
   );
 };

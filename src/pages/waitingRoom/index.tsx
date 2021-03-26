@@ -27,20 +27,25 @@ export const WaitingRoom = (props: WaitingRoomProps) => {
     return <></>;
   }
 
-  const content = optedIn ? (
-    <h1>Waiting for partner...</h1>
-  ) : (
-    <div>
-      <h2>Ready to hang?</h2>
-      <button onClick={submitOptIn}>
-        <span>Yes!</span>
-      </button>
-    </div>
+  const userWaiting = (
+    <h1 className="waiting-room-pairing__title"> Waiting for a partner...</h1>
   );
 
+  const userPaired = (<div>
+    <h2>Are you ready to hang?</h2>
+    <button onClick={submitOptIn}>
+      <span>Yes!</span>
+    </button>
+  </div>);
+
+  const content = optedIn ?
+    { userWaiting }
+    : { userPaired };
+
+
   return (
-    <div>
-      <h1>Waiting Room</h1>
+    <div className="waiting-room-page">
+      <h1 className="waiting-room-title">Waiting Room</h1>
       {content}
     </div>
   );
