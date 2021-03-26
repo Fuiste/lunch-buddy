@@ -6,7 +6,7 @@ import { APP_ROUTES } from "./router";
 import "./App.css";
 
 function App() {
-  const { frontDoor } = APP_ROUTES;
+  const { frontDoor, hangout, waitingRoom } = APP_ROUTES;
 
   return (
     <Provider store={store}>
@@ -14,6 +14,8 @@ function App() {
         <div className="app">
           <Switch>
             <Route path={frontDoor.pathId}>{frontDoor.component}</Route>
+            <Route path={hangout.pathId}>{hangout.component}</Route>
+            <Route path={waitingRoom.pathId}>{waitingRoom.component}</Route>
           </Switch>
         </div>
       </Router>
