@@ -3,7 +3,7 @@ import { FrontDoor } from "./";
 import * as lenses from "../../store/lenses";
 import { CreateAccountConfig } from "../../api";
 
-export const FrontDoorConnector = connect(
+export const FrontDoorContainer = connect(
   (state) => ({
     session: lenses.session(state),
   }),
