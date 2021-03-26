@@ -1,16 +1,16 @@
 import { useHistory } from "react-router";
 import { APP_ROUTES } from "../../router";
-import { UserState } from "../../store/state";
+import { WithSession } from "../../util";
 
 export type WaitingRoomProps = {
-  user: UserState | undefined;
-};
+  submitOptIn: () => void;
+} & WithSession;
 
 export const WaitingRoom = (props: WaitingRoomProps) => {
-  const { user } = props;
+  const { session } = props;
   const history = useHistory();
 
-  if (user === undefined) {
+  if (session.user === undefined) {
     const frontDoor = APP_ROUTES.frontDoor.toPath();
     history.push(frontDoor);
 
@@ -19,7 +19,7 @@ export const WaitingRoom = (props: WaitingRoomProps) => {
 
   return (
     <div>
-      <h1>Waiting room for {user.name}</h1>
+      <h1>Waiting room for {session.user.name}</h1>
     </div>
   );
 };

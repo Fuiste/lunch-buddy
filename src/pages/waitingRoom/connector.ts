@@ -4,7 +4,11 @@ import * as lenses from "../../store/lenses";
 
 export const WaitingRoomContainer = connect(
   (state) => ({
-    user: lenses.activeUser(state),
+    session: lenses.session(state),
   }),
-  (dispatch) => ({})
+  (dispatch) => ({
+    submitOptIn: () => {
+      dispatch({ type: "OPT_IN_REQUEST" });
+    },
+  })
 )(WaitingRoom);
