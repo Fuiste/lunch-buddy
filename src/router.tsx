@@ -3,8 +3,6 @@ import { FrontDoorContainer } from "./pages/frontDoor/connector";
 import { HangoutContainer } from "./pages/hangout/connector";
 import { WaitingRoomContainer } from "./pages/waitingRoom/connector";
 
-export const HANGOUT_ID = ":hangoutId";
-
 export type AppRoute = {
   pathId: string;
   toPath: (id?: string) => string;
@@ -24,8 +22,8 @@ const waitingRoomRoute: AppRoute = {
 };
 
 const hangoutRoute: AppRoute = {
-  pathId: `/hangout/${HANGOUT_ID}`,
-  toPath: (id) => `/hangout/${id || ""}`,
+  pathId: `/hangout`,
+  toPath: () => `/hangout`,
   component: <HangoutContainer />,
 };
 
