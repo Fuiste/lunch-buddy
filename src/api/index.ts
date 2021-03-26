@@ -12,15 +12,20 @@ export const createUser = async (
   return { name, email, id: "fake-user" };
 };
 
-export const optIn = async (timestamp: Date): Promise<boolean> => {
+export const optIn = async (
+  email: string,
+  timestamp: Date
+): Promise<boolean> => {
   return true;
 };
 
-export const pollForHangout = async (): Promise<HangoutState | undefined> => {
+export const pollForHangout = async (
+  email: string
+): Promise<HangoutState | undefined> => {
   console.log("Returning nothing..");
   return undefined;
 };
 
-export const fetchHistory = async (): Promise<HangoutState[]> => {
+export const fetchHistory = async (email: string): Promise<HangoutState[]> => {
   return [];
 };

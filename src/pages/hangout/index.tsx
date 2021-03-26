@@ -14,25 +14,14 @@ export const Hangout = (props: HangoutProps) => {
   if (activeUser === undefined) {
     const frontDoor = APP_ROUTES.frontDoor.toPath();
     history.push(frontDoor);
-
-    return <></>;
-  }
-
-  if (activeHangout === undefined) {
+  } else if (activeHangout === undefined) {
     const waitingRoom = APP_ROUTES.waitingRoom.toPath();
     history.push(waitingRoom);
-
-    return <></>;
   }
-
-  const toUserNames = (user: UserState) => {
-    return <p>{user.name}</p>;
-  };
 
   return (
     <div>
-      <h1>Hanging Out with:</h1>
-      <div>{activeHangout.attendees.map(toUserNames)}</div>
+      <h1>Hanging Out</h1>
     </div>
   );
 };

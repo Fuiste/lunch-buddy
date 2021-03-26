@@ -62,6 +62,14 @@ export type FetchHistoryError = {
   error: any;
 };
 
+export type StartPollForHangout = {
+  type: "START_POLL_FOR_HANGOUT";
+};
+
+export type CancelPollForHangout = {
+  type: "CANCEL_POLL_FOR_HANGOUT";
+};
+
 export type Action =
   | Noop
   | CreateUserError
@@ -75,4 +83,6 @@ export type Action =
   | FetchHangoutSuccess
   | FetchHistoryError
   | FetchHistoryRequest
-  | FetchHistorySuccess;
+  | FetchHistorySuccess
+  | StartPollForHangout
+  | CancelPollForHangout;

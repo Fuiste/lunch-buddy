@@ -9,28 +9,15 @@ export type WaitingRoomProps = {
 } & WithSession;
 
 export const WaitingRoom = (props: WaitingRoomProps) => {
+  const history = useHistory();
   const { activeHangout, session, submitOptIn } = props;
   const { user, optedIn } = session;
-  const history = useHistory();
-
-  if (user === undefined) {
-    const frontDoor = APP_ROUTES.frontDoor.toPath();
-    history.push(frontDoor);
-
-    return <></>;
-  }
-
-  if (activeHangout !== undefined) {
-    const hangout = APP_ROUTES.hangout.toPath();
-    history.push(hangout);
-
-    return <></>;
-  }
 
   const userWaiting = (
     <h1 className="waiting-room-pairing__title"> Waiting for a partner...</h1>
   );
 
+<<<<<<< HEAD
   const userPaired = (<div>
     <h2>Are you ready to hang?</h2>
     <button onClick={submitOptIn}>
@@ -42,6 +29,15 @@ export const WaitingRoom = (props: WaitingRoomProps) => {
     { userWaiting }
     : { userPaired };
 
+=======
+  if (user === undefined) {
+    const frontDoor = APP_ROUTES.frontDoor.toPath();
+    history.push(frontDoor);
+  } else if (activeHangout !== undefined) {
+    const hangout = APP_ROUTES.hangout.toPath();
+    history.push(hangout);
+  }
+>>>>>>> main
 
   return (
     <div className="waiting-room-page">
