@@ -17,7 +17,6 @@ export const WaitingRoom = (props: WaitingRoomProps) => {
     <h1 className="waiting-room-pairing__title"> Waiting for a partner...</h1>
   );
 
-<<<<<<< HEAD
   const userPaired = (<div>
     <h2>Are you ready to hang?</h2>
     <button onClick={submitOptIn}>
@@ -29,7 +28,6 @@ export const WaitingRoom = (props: WaitingRoomProps) => {
     { userWaiting }
     : { userPaired };
 
-=======
   if (user === undefined) {
     const frontDoor = APP_ROUTES.frontDoor.toPath();
     history.push(frontDoor);
@@ -37,7 +35,6 @@ export const WaitingRoom = (props: WaitingRoomProps) => {
     const hangout = APP_ROUTES.hangout.toPath();
     history.push(hangout);
   }
->>>>>>> main
 
   return (
     <div className="waiting-room-page">
