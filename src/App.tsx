@@ -13,9 +13,9 @@ function App() {
       <Router>
         <div className="app">
           <Switch>
-            <Route path={frontDoor.pathId}>{frontDoor.component}</Route>
             <Route path={hangout.pathId}>{hangout.component}</Route>
             <Route path={waitingRoom.pathId}>{waitingRoom.component}</Route>
+            <Route path={frontDoor.pathId}>{frontDoor.component}</Route>
           </Switch>
         </div>
       </Router>
