@@ -9,18 +9,10 @@ export type FrontDoorProps = {
 } & WithSession;
 
 export const FrontDoor = (props: FrontDoorProps) => {
-  const { session, submitAccountCreate } = props;
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-
-  if (session.user !== undefined) {
-    const waitingRoom = APP_ROUTES.waitingRoom.toPath();
-    history.push(waitingRoom);
-
-    return <></>;
-  }
-
+  const { session, submitAccountCreate } = props;
   const maybeSubmit = () => {
     if (email !== "" && name !== "") {
       submitAccountCreate({ email, name });
@@ -30,6 +22,11 @@ export const FrontDoor = (props: FrontDoorProps) => {
       );
     }
   };
+
+  if (session.user !== undefined) {
+    const waitingRoom = APP_ROUTES.waitingRoom.toPath();
+    history.push(waitingRoom);
+  }
 
   return (
     <div className="App">
@@ -62,5 +59,3 @@ export const FrontDoor = (props: FrontDoorProps) => {
     </div>
   );
 };
-
-export default FrontDoor;
