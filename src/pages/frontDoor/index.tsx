@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { CreateAccountConfig } from "../../api";
 import { APP_ROUTES } from "../../router";
 import { WithSession } from "../../util";
+import { Input } from '@material-ui/core'
 
 import './style.scss'
 
@@ -35,8 +36,9 @@ export const FrontDoor = (props: FrontDoorProps) => {
 
   return (
     <div className="front-door-page">
-      <h1>Lunch Buddy</h1>
+      <h1 className="front-door-title">Lunch Buddy</h1>
       <form
+        className="front-door-signup"
         onSubmit={(e) => {
           e.preventDefault();
           maybeSubmit();
@@ -44,7 +46,7 @@ export const FrontDoor = (props: FrontDoorProps) => {
       >
         <label>
           Email:
-          <input
+          <Input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -53,13 +55,13 @@ export const FrontDoor = (props: FrontDoorProps) => {
 
         <label>
           Name:
-          <input
+          <Input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <input type="submit" value="Submit" />
+        <Input type="submit" value="Submit" />
       </form>
     </div>
   );
