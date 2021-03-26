@@ -22,6 +22,7 @@ export type CreateUserError = {
 
 export type OptInRequest = {
   type: "OPT_IN_REQUEST";
+  timestamp: Date;
 };
 
 export type OptInSuccess = {

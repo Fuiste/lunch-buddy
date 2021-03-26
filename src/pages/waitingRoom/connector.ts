@@ -8,7 +8,7 @@ export const WaitingRoomContainer = connect(
   }),
   (dispatch) => ({
     submitOptIn: () => {
-      dispatch({ type: "OPT_IN_REQUEST" });
+      dispatch({ type: "OPT_IN_REQUEST", timestamp: new Date() });
     },
   })
 )(WaitingRoom);

@@ -1,5 +1,5 @@
 import flow from "lodash/flow";
-import { Lens, Prism } from "@atomic-object/lenses";
+import { Lens } from "@atomic-object/lenses";
 import { AppState, SessionState } from "./state";
 
 export const session = Lens.from<AppState>().prop("session");
