@@ -1,3 +1,5 @@
+import { useHistory } from "react-router-dom";
+import { APP_ROUTES } from "../../router";
 import { HangoutState, UserState } from "../../store/state";
 
 export type HangoutProps = {
@@ -7,10 +9,22 @@ export type HangoutProps = {
 
 export const Hangout = (props: HangoutProps) => {
   const { activeUser, activeHangout } = props;
+  const history = useHistory();
 
-  if (activeUser === undefined || activeHangout === undefined) {
-    throw new Error("Somethign was undefined");
+  if (activeUser === undefined) {
+    const frontDoor = APP_ROUTES.frontDoor.toPath();
+    history.push(frontDoor);
+
+    return <></>;
   }
+
+  if (activeHangout === undefined) {
+    const waitingRoom = APP_ROUTES.waitingRoom.toPath();
+    history.push(waitingRoom);
+
+    return <></>;
+  }
+
   const toUserNames = (user: UserState) => {
     return <p>{user.name}</p>;
   };

@@ -1,3 +1,5 @@
+import { useHistory } from "react-router";
+import { APP_ROUTES } from "../../router";
 import { UserState } from "../../store/state";
 
 export type WaitingRoomProps = {
@@ -6,9 +8,13 @@ export type WaitingRoomProps = {
 
 export const WaitingRoom = (props: WaitingRoomProps) => {
   const { user } = props;
+  const history = useHistory();
 
   if (user === undefined) {
-    throw new Error("No user");
+    const frontDoor = APP_ROUTES.frontDoor.toPath();
+    history.push(frontDoor);
+
+    return <></>;
   }
 
   return (
