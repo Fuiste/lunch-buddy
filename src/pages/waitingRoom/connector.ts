@@ -4,6 +4,7 @@ import * as lenses from "../../store/lenses";
 
 export const WaitingRoomContainer = connect(
   (state) => ({
+    activeHangout: lenses.activeHangout(state),
     session: lenses.session(state),
   }),
   (dispatch) => ({

@@ -2,11 +2,13 @@ export type UserState = {
   id: string;
   email: string;
   name: string;
+  bio?: string;
 };
 
 export type HangoutState = {
   timestamp: Date;
   attendees: UserState[];
+  zoomUri: string;
 };
 
 export type SessionState = {

@@ -1,8 +1,10 @@
 import { useHistory } from "react-router";
 import { APP_ROUTES } from "../../router";
+import { HangoutState } from "../../store/state";
 import { WithSession } from "../../util";
 
 export type WaitingRoomProps = {
+  activeHangout: HangoutState | undefined;
   submitOptIn: () => void;
 } & WithSession;
 
