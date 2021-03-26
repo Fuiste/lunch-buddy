@@ -1,5 +1,5 @@
 import React from "react";
-import FrontDoor from "./pages/frontDoor";
+import { FrontDoorConnector } from "./pages/frontDoor/connector";
 import { HangoutContainer } from "./pages/hangout/connector";
 import { WaitingRoomContainer } from "./pages/waitingRoom/connector";
 
@@ -14,7 +14,7 @@ export type AppRoute = {
 const frontDoorRoute: AppRoute = {
   pathId: "/",
   toPath: () => "/",
-  component: <FrontDoor />,
+  component: <FrontDoorConnector />,
 };
 
 const waitingRoomRoute: AppRoute = {

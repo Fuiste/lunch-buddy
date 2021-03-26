@@ -1,3 +1,4 @@
+import { CreateAccountConfig } from "../api";
 import { HangoutState, UserState } from "./state";
 
 export type Noop = {
@@ -6,10 +7,7 @@ export type Noop = {
 
 export type CreateUserRequest = {
   type: "CREATE_USER_REQUEST";
-  config: {
-    email: string;
-    name: string;
-  };
+  config: CreateAccountConfig;
 };
 
 export type CreateUserSuccess = {

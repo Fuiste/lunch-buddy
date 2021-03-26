@@ -1,7 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
+import { useHistory } from "react-router";
+import { CreateAccountConfig } from "../../api";
+import { APP_ROUTES } from "../../router";
+import { WithSession } from "../../util";
+import logo from "./logo.svg";
 
-export const FrontDoor = () => {
+export type FrontDoorProps = {
+  submitAccountCreate: (config: CreateAccountConfig) => void;
+} & WithSession;
+
+export const FrontDoor = (props: FrontDoorProps) => {
+  const { session } = props;
+  const history = useHistory();
+
+  if (session.user !== undefined) {
+    const waitingRoom = APP_ROUTES.waitingRoom.toPath();
+    history.push(waitingRoom);
+
+    return <></>;
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +34,6 @@ export const FrontDoor = () => {
       </header>
     </div>
   );
-}
+};
 
 export default FrontDoor;
