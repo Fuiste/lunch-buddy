@@ -15,6 +15,7 @@ export type SessionState = {
 };
 
 export type AppState = {
+  loading: boolean;
   error: any;
   session: SessionState;
   history: HangoutState[];
@@ -35,5 +36,11 @@ export const defaultSessionState = (): SessionState => {
 export const defaultState = (): AppState => {
   const session = defaultSessionState();
   const history = defaultHistoryState();
-  return { error: null, history, session, activeHangout: undefined };
+  return {
+    loading: false,
+    error: null,
+    history,
+    session,
+    activeHangout: undefined,
+  };
 };
