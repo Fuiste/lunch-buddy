@@ -1,18 +1,38 @@
 export type UserState = {
+  id: string;
   email: string;
+  name: string;
+};
+
+export type HangoutState = {
+  timestamp: Date;
+  attendees: UserState[];
+};
+
+export type SessionState = {
+  user: UserState | undefined;
+  optedIn: boolean;
 };
 
 export type AppState = {
-  user: UserState | undefined;
+  session: SessionState;
+  history: HangoutState[];
+  activeHangout: HangoutState | undefined;
 };
 
-export const defaultUserState = (): UserState | undefined => {
-  return undefined;
+export const defaultHistoryState = (): HangoutState[] => {
+  return [];
+};
+
+export const defaultSessionState = (): SessionState => {
+  return {
+    user: undefined,
+    optedIn: false,
+  };
 };
 
 export const defaultState = (): AppState => {
-  const user = defaultUserState();
-  return {
-    user,
-  };
+  const session = defaultSessionState();
+  const history = defaultHistoryState();
+  return { history, session, activeHangout: undefined };
 };
