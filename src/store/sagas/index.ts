@@ -3,7 +3,6 @@ import { createUser, fetchHistory, optIn, pollForHangout } from "../../api";
 import { AsyncReturnType } from "../../util";
 import { Action, CreateUserRequest, OptInRequest } from "../actions";
 import * as lenses from "../lenses";
-import { HangoutState } from "../state";
 
 const putAction = (action: Action) => put(action);
 
@@ -64,8 +63,7 @@ function* fetchActiveHangoutSaga() {
   }
 }
 
-function* optInSaga(action: OptInRequest) {
-  const { timestamp } = action;
+function* optInSaga() {
   console.log("Opting in...");
 
   try {
@@ -73,7 +71,7 @@ function* optInSaga(action: OptInRequest) {
       lenses.activeUser
     );
     if (user !== undefined) {
-      yield call(optIn, user.email, timestamp);
+      yield call(optIn, user.email);
       yield putAction({ type: "OPT_IN_SUCCESS" });
       yield putAction({ type: "START_POLL_FOR_HANGOUT" });
     } else {
@@ -85,11 +83,11 @@ function* optInSaga(action: OptInRequest) {
 }
 
 function* pollForHangoutSaga() {
-  let hangout: HangoutState | undefined = undefined;
+  let hangout: ReturnType<typeof lenses.activeHangout> = undefined;
 
   while (hangout === undefined) {
-    yield putAction({ type: "FETCH_HANGOUT_REQUEST" });
     yield delay(5000);
+    yield putAction({ type: "FETCH_HANGOUT_REQUEST" });
     hangout = yield select(lenses.activeHangout);
   }
 }
