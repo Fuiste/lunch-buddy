@@ -4,6 +4,8 @@ import { CreateAccountConfig } from "../../api";
 import { APP_ROUTES } from "../../router";
 import { WithSession } from "../../util";
 
+import './style.scss'
+
 export type FrontDoorProps = {
   submitAccountCreate: (config: CreateAccountConfig) => void;
 } & WithSession;
@@ -32,7 +34,7 @@ export const FrontDoor = (props: FrontDoorProps) => {
   };
 
   return (
-    <div className="App">
+    <div className="front-door-page">
       <h1>Lunch Buddy</h1>
       <form
         onSubmit={(e) => {
